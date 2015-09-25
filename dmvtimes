@@ -1,0 +1,29 @@
+#!/usr/bin/python
+#Mike Aracic LM hack-a-thon
+import requests
+import json
+#The values for the parameters
+company = 'scenariolab'
+user   = 'api'
+pwd    = ''
+host   = 'kegbot'
+dsname = 'DMVWait_s-'
+#build the request string
+dataRequest= 'https://{0}.logicmonitor.com/santaba/rpc/getData?host={1}&dataSource={2}&c={0}&u={3}&p={4}'.format(company,host,dsname,user,pwd)
+#use requests and json to get and parse the response
+r = requests.get(dataRequest)
+j = json.loads(r.text)
+#refer to the actual datapoints you want
+#tested using instance names to refer to the collected data
+#print j["data"]["values"]['DMVWait_s-Santa Barbara'][0][3]
+#print j["data"]["values"]['DMVWait_s-Goleta'][0][3]
+n = j["data"]["values"]['DMVWait_s-Santa Barbara'][0][3]
+#Produce different output based on the value of the datapoint sample
+if n == 0:
+    print "{'pattern': 'EKG'}"
+elif n < 20:
+    print "{'color': '#00FF05'}"
+elif n < 40:
+    print "{'color': '#4C4E00'}"
+elif n >=40:
+    print "{'color': '4E0200'}"
