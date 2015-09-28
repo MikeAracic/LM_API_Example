@@ -17,6 +17,9 @@ j = json.loads(r.text)
 #tested using instance names to refer to the collected data
 #print j["data"]["values"]['DMVWait_s-Santa Barbara'][0][3]
 #print j["data"]["values"]['DMVWait_s-Goleta'][0][3]
+#Note that the [0] represents the 0th sample in time
+#and [3] represents the 4th datapoint from each sample, with
+#zero and one being time in epoch time and human-readable time, respectively
 n = j["data"]["values"]['DMVWait_s-Santa Barbara'][0][3]
 #Produce different output based on the value of the datapoint sample
 if n == 0:
